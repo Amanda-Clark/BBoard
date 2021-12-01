@@ -8,3 +8,6 @@ https://www.youtube.com/watch?v=fXLnpgHCMi4&list=PLu7_of-Pg8ASVPADWR9SKrOgw2Ruby
 
 I wanted something similar for at home use, just to have in the background-something that doesn't have people on it and is 
 in a sense neutral.
+
+The code is admittedly super messy and not at all polished, this was something quickly put together and not really meant to be 
+shared, but whatever.
