@@ -1,12 +1,16 @@
 import requests
 
-
 from datetime import datetime as dt2
 from flask import Flask
 from flask import render_template
 
-degree_sign = u'\N{DEGREE SIGN}'
-apikey = ""
+app = Flask(__name__)
+app.config.from_object('config')
+latitude = app.config["LATITUDE"]
+longitude = app.config["LONGITUDE"]
+news_key = app.config["NEWS_API_KEY"]
+weather_key = app.config["WEATHER_API_KEY"]
+
 
 def cur_cond(r):
     curTemp = str(r.json()['current']['temp'])
@@ -28,7 +32,7 @@ def cur_cond(r):
     dewpoint = str(r.json()['current']['dew_point'])
     clouds = str(r.json()['current']['clouds'])
     uvi = str(r.json()['current']['uvi'])
-    return curTemp, desc, windSpd, windDegree, visibility, humidity, time, sunrise, sunset,feelslike, pressure, \
+    return curTemp, desc, windSpd, windDegree, visibility, humidity, time, sunrise, sunset, feelslike, pressure, \
            dewpoint, clouds, uvi
 
 
@@ -52,10 +56,10 @@ class Stories:
 
 
 def getnews(newsdata):
-    stories =[]
+    stories = []
     for item in newsdata.json()['articles']:
         name = item['source']['name']
-        title =item['title']
+        title = item['title']
         description = item['description']
         publishedat = item['publishedAt']
         content = item['content']
@@ -92,24 +96,18 @@ class CurrWthr(object):
         self.uvi = args[13]
 
 
-latitude = "47.9504"
-longitude = "-124.3855"
-
-app = Flask(__name__)
-
-
 @app.route('/')
 def return_board():
     result = requests.get("https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon="
-                          + longitude + "&units=imperial&exclude=minutely,hourly&appid=" + apikey)
+                          + longitude + "&units=imperial&exclude=minutely,hourly&appid=" + weather_key)
 
     newsdata = requests.get("https://newsapi.org/v2/top-headlines?country=us&pageSize=15&"
-                            "apiKey=")
-    oregonnews = requests.get("https://newsapi.org/v2/top-headlines?country=us&q=covid&pageSize=15&"
-                              "apiKey=")
+                            "apiKey="+news_key)
+    othernews = requests.get("https://newsapi.org/v2/top-headlines?country=us&q=covid&pageSize=15&"
+                             "apiKey="+news_key)
     storylist = getnews(newsdata)
-    oregonnews = getnews(oregonnews)
-    curTemp, desc, windSpd, windDegree, visibility, humidity, time, srise, sset, feels, press, dew, clds,uvi = \
+    othernews = getnews(othernews)
+    curTemp, desc, windSpd, windDegree, visibility, humidity, time, srise, sset, feels, press, dew, clds, uvi = \
         cur_cond(result)
 
     if 'alerts' in result.json():
@@ -121,11 +119,11 @@ def return_board():
         current = CurrWthr(curTemp, desc, windSpd, windDegree, visibility, humidity, time, srise, sset, feels, press,
                        dew, clds, uvi)
         return render_template('board.html', data=current, alerts=alert, news=storylist, flag="alert",
-                              ornews=oregonnews)
+                              ornews=othernews)
     else:
         current = CurrWthr(curTemp, desc, windSpd, windDegree, visibility, humidity, time, srise, sset, feels, press,
                            dew, clds, uvi)
-        return render_template('board.html', data=current, flag="noalert", news=storylist, ornews=oregonnews)
+        return render_template('board.html', data=current, flag="noalert", news=storylist, ornews=othernews)
 
 
 if __name__ == '__main__':
