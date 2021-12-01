@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Bulletin Board</title>
+    <script>
+        function display_c(){
+            var refresh=1000; // Refresh rate in milli seconds
+            mytime=setTimeout('display_ct()',refresh)
+        }
+        function display_ct() {
+            var x = new Date()
+            document.getElementById('ct').innerHTML = x;
+            display_c();
+        }
+       var slideIndex = 1;
+
+
+       showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("news");
+            var slides2 = document.getElementsByClassName("ornews");
+
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+
+            slides[slideIndex-1].style.display = "block";
+
+            if (n > slides2.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides2.length}
+            for (i = 0; i < slides2.length; i++) {
+                slides2[i].style.display = "none";
+            }
+
+            slides2[slideIndex-1].style.display = "block";
+
+        }
+        function cyclenews(){
+            plusSlides(1)
+            news_timeout();
+        }
+        function news_timeout(){
+            var refresh=15000; // Refresh rate in milli seconds
+            mytime=setTimeout('cyclenews()',refresh)
+        }
+        function timedRefresh(timeoutPeriod) {
+	        setTimeout("location.reload(true);",timeoutPeriod);
+        }
+    </script>
+    <style type="text/css">
+         h1 {text-align: center; color: black}
+         .alert{text-align:left;
+         }
+         .center {
+            margin-left: auto;
+            margin-right: auto;
+          }
+        @font-face{
+            font-family:"teletext2";
+            src: url("/static/Modeseven-L3n5.ttf");
+        }
+        .weathertxt{
+            font-family: "teletext2";
+            display: block;
+            font-size:25px;
+            white-space: nowrap;
+        }
+        .timetxt{
+            font-family: "teletext2";
+            display: block;
+            font-size:12px;
+            white-space: wrap;
+            text-align:center;
+        }
+        .newstxt{
+            font-family: "teletext2";
+            display: block;
+            font-size:22px;
+            white-space: wrap;
+            text-align:left;
+
+        }
+        .hdrtxt{
+            font-family: "teletext2";
+            display: block;
+            font-size:12px;
+            white-space: nowrap;
+
+        }
+        .alerttxt{
+            font-family: "teletext2";
+            display: block;
+            font-size:15px;
+            white-space: nowrap;
+            color: red;
+
+        }
+        .desctxt{
+            font-family: "teletext2";
+            display: block;
+            font-size:12px;
+
+            color: white;
+            text-align:left;
+            width:400px;
+            overflow:hidden;
+            text-overflow: ellipsis;
+
+        }
+        #thewholething {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh
+        }
+
+        #thirdrow {
+            flex-grow: 1;
+            align-self: stretch;
+        }
+        .scroll-left {
+            height: 100px;
+            overflow: hidden;
+            position: relative;
+            background: yellow;
+            color: orange;
+            border: 1px solid orange;
+        }
+        .scroll-left p {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            line-height: 50px;
+            text-align: center;
+            /* Starting position */
+            transform:translateX(100%);
+            /* Apply animation to this element */
+            animation: scroll-left 45s linear infinite;
+        }
+        @keyframes scroll-left {
+         0%   {
+         transform: translateX(100%);
+          }
+         100% {
+         transform: translateX(-100%);
+         }
+         }
+
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 31.9%;
+  height: 475px;
+  padding: 10px;
+  border: hidden;
+  background-color:lightseagreen;
+
+}
+
+
+    </style>
+</head>
+<body onload=display_ct();cyclenews();timedRefresh(3600000);>
+    <div id="thewholething" style="height:600px; width:100%">
+          <div id="firstrow"  style="width: 100%;height: 190px;background-color: maroon;color: white">
+              <h1 class="weathertxt">Amanda Home Bulletin Board</h1>
+               <p class="timetxt">Current Time: <span id="ct"></span></p>
+              <div style="display: flex; justify-content: space-between;">
+               <p class="hdrtxt";>Temperature: {{data.curTemp}} degrees </p>
+               <p class="hdrtxt";>Feels Like: {{data.feelslike}} degrees </p>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+               <p class="hdrtxt";>Barometric Pressure: {{data.pressure}} hPa </p>
+               <p class="hdrtxt";>Visibilty: {{data.visibility}} km </p>
+              </div>
+          </div>
+        <div id="toprow" class="scroll-left" style="width: 100%;height: 100px;background-color: black;color: white">
+            <p class="weathertxt";>Current Conditions: {{data.desc}} Temperature: {{data.curTemp}} degrees
+               Wind: {{data.windSpd}} mph from {{data.windDegree}} degrees Humidity: {{data.humidity}}% Barometric Pressure:
+               {{data.pressure}} Dewpoint: {{data.dewpoint}} Cloud Cover: {{data.clouds}}% UV Index: {{data.uvi}}
+           </p>
+        </div>
+        <div id="secondrow" style="width:100%; height: 650px;background-color:darkorchid;color:white">
+        <div class="row">
+             <div class="column" style="background-color:darkorchid ;">
+
+      <table class="alert">
+
+            <tr>
+                <th class="alerttxt">
+                    Weather Alerts
+                </th>
+            </tr>
+          {% if flag == "alert" %}
+                <tr>
+                <td class="timetxt" style="text-align:left;">
+                    {{alerts.sender}}
+                </td>
+                </tr>
+                <tr>
+                <td class="timetxt" style="text-align:left;">
+                    {{alerts.event}}
+                </td>
+                </tr>
+                <tr>
+                <td class="timetxt" style="text-align:left;">
+                    From: {{alerts.start}}
+                </td>
+                </tr>
+                <tr>
+                <td class="timetxt" style="text-align:left;">
+                    To: {{alerts.end}}
+                </td>
+                </tr>
+                <tr>
+               <td class="desctxt">
+                   <p>{{alerts.description}}</p>
+                </td>
+                </tr>
+          {% endif %}
+          {% if flag =="noalert" %}
+          <tr>
+                <th class="alerttxt">
+                    There are no weather alerts
+                </th>
+            </tr>
+          {% endif %}
+        </table>
+  </div>
+     <div class="column" style="background-color:darkorchid;">
+      <p>Top Headlines</p>
+      <div class="news">
+          <p style="color:yellow;font-family:teletext2;" >{{news[0].name}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{news[0].title}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{news[0].publishedat}}</p>
+          <h2 class="newstxt">{{news[0].description}}</h2>
+          <h2 class="newstxt">{{news[0].content}}</h2>
+      </div>
+      <div class="news">
+          <p style="color:yellow;font-family:teletext2;" >{{news[1].name}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{news[1].title}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{news[1].publishedat}}</p>
+          <h2 class="newstxt">{{news[1].description}}</h2>
+          <h2 class="newstxt">{{news[1].content}}</h2>
+      </div>
+     <div class="news">
+          <p style="color:yellow;font-family:teletext2;" >{{news[2].name}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{news[2].title}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{news[2].publishedat}}</p>
+          <h2 class="newstxt">{{news[2].description}}</h2>
+          <h2 class="newstxt">{{news[2].content}}</h2>
+     </div>
+     <div class="news">
+          <p style="color:yellow;font-family:teletext2;" >{{news[3].name}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{news[3].title}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{news[3].publishedat}}</p>
+          <h2 class="newstxt">{{news[3].description}}</h2>
+          <h2 class="newstxt">{{news[3].content}}</h2>
+     </div>
+
+     <div class="news">
+          <p style="color:yellow;font-family:teletext2;" >{{news[4].name}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{news[4].title}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{news[4].publishedat}}</p>
+          <h2 class="newstxt">{{news[4].description}}</h2>
+          <h2 class="newstxt">{{news[4].content}}</h2>
+     </div>
+     <div class="news">
+          <p style="color:yellow;font-family:teletext2;" >{{news[5].name}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{news[5].title}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{news[5].publishedat}}</p>
+          <h2 class="newstxt">{{news[5].description}}</h2>
+          <h2 class="newstxt">{{news[5].content}}</h2>
+      </div>
+     <div class="news">
+          <p style="color:yellow;font-family:teletext2;" >{{news[6].name}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{news[6].title}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{news[6].publishedat}}</p>
+          <h2 class="newstxt">{{news[6].description}}</h2>
+         <h2 class="newstxt">{{news[6].content}}</h2>
+     </div>
+     <div class="news">
+         <p style="color:yellow;font-family:teletext2;" >{{news[7].name}}</p>
+         <p style="color:yellow;font-family:teletext2;">{{news[7].title}}</p>
+         <p style="color:yellow;font-family:teletext2;">{{news[7].publishedat}}</p>
+         <h2 class="newstxt">{{news[7].description}}</h2>
+         <h2 class="newstxt">{{news[7].content}}</h2>
+     </div>
+     <div class="news">
+         <p style="color:yellow;font-family:teletext2;" >{{news[8].name}}</p>
+         <p style="color:yellow;font-family:teletext2;">{{news[8].title}}</p>
+         <p style="color:yellow;font-family:teletext2;">{{news[8].publishedat}}</p>
+         <h2 class="newstxt">{{news[8].description}}</h2>
+         <h2 class="newstxt">{{news[8].content}}</h2>
+     </div>
+     <div class="news">
+         <p style="color:yellow;font-family:teletext2;" >{{news[9].name}}</p>
+         <p style="color:yellow;font-family:teletext2;">{{news[9].title}}</p>
+         <p style="color:yellow;font-family:teletext2;">{{news[9].publishedat}}</p>
+         <h2 class="newstxt">{{news[9].description}}</h2>
+         <h2 class="newstxt">{{news[9].content}}</h2>
+     </div>
+         <div class="news">
+         <p style="color:yellow;font-family:teletext2;" >{{news[10].name}}</p>
+         <p style="color:yellow;font-family:teletext2;">{{news[10].title}}</p>
+         <p style="color:yellow;font-family:teletext2;">{{news[10].publishedat}}</p>
+         <h2 class="newstxt">{{news[10].description}}</h2>
+         <h2 class="newstxt">{{news[10].content}}</h2>
+     </div>
+         <div class="news">
+         <p style="color:yellow;font-family:teletext2;" >{{news[11].name}}</p>
+         <p style="color:yellow;font-family:teletext2;">{{news[11].title}}</p>
+         <p style="color:yellow;font-family:teletext2;">{{news[11].publishedat}}</p>
+         <h2 class="newstxt">{{news[11].description}}</h2>
+         <h2 class="newstxt">{{news[11].content}}</h2>
+     </div>
+         <div class="news">
+         <p style="color:yellow;font-family:teletext2;" >{{news[12].name}}</p>
+         <p style="color:yellow;font-family:teletext2;">{{news[12].title}}</p>
+         <p style="color:yellow;font-family:teletext2;">{{news[12].publishedat}}</p>
+         <h2 class="newstxt">{{news[12].description}}</h2>
+         <h2 class="newstxt">{{news[12].content}}</h2>
+     </div>
+         <div class="news">
+         <p style="color:yellow;font-family:teletext2;" >{{news[13].name}}</p>
+         <p style="color:yellow;font-family:teletext2;">{{news[13].title}}</p>
+         <p style="color:yellow;font-family:teletext2;">{{news[13].publishedat}}</p>
+         <h2 class="newstxt">{{news[13].description}}</h2>
+         <h2 class="newstxt">{{news[13].content}}</h2>
+     </div>
+         <div class="news">
+         <p style="color:yellow;font-family:teletext2;" >{{news[14].name}}</p>
+         <p style="color:yellow;font-family:teletext2;">{{news[14].title}}</p>
+         <p style="color:yellow;font-family:teletext2;">{{news[14].publishedat}}</p>
+         <h2 class="newstxt">{{news[14].description}}</h2>
+         <h2 class="newstxt">{{news[14].content}}</h2>
+     </div>
+     </div>
+   <div class="column" style="background-color:darkorchid;">
+
+      <p>COVID News</p>
+     <div class="ornews">
+          <p style="color:yellow;font-family:teletext2;" >{{ornews[0].name}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{ornews[0].title}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{ornews[0].publishedat}}</p>
+          <h2 class="newstxt">{{ornews[0].description}}</h2>
+          <h2 class="newstxt">{{ornews[0].content}}</h2>
+      </div>
+      <div class="ornews">
+          <p style="color:yellow;font-family:teletext2;" >{{ornews[1].name}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{ornews[1].title}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{ornews[1].publishedat}}</p>
+          <h2 class="newstxt">{{ornews[1].description}}</h2>
+          <h2 class="newstxt">{{ornews[1].content}}</h2>
+      </div>
+     <div class="ornews">
+          <p style="color:yellow;font-family:teletext2;" >{{ornews[2].name}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{ornews[2].title}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{ornews[2].publishedat}}</p>
+          <h2 class="newstxt">{{ornews[2].description}}</h2>
+          <h2 class="newstxt">{{ornews[2].content}}</h2>
+     </div>
+     <div class="ornews">
+          <p style="color:yellow;font-family:teletext2;" >{{ornews[3].name}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{ornews[3].title}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{ornews[3].publishedat}}</p>
+          <h2 class="newstxt">{{ornews[3].description}}</h2>
+          <h2 class="newstxt">{{ornews[3].content}}</h2>
+     </div>
+
+     <div class="ornews">
+          <p style="color:yellow;font-family:teletext2;" >{{ornews[4].name}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{ornews[4].title}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{ornews[4].publishedat}}</p>
+          <h2 class="newstxt">{{ornews[4].description}}</h2>
+          <h2 class="newstxt">{{ornews[4].content}}</h2>
+     </div>
+
+
+
+</div>
+
+        </div>
+
+
+    </div>
+</body>
+</html>
