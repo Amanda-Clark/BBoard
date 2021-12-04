@@ -75,160 +75,36 @@
   </div>
      <div class="column" style="background-color:darkorchid;">
       <p>Top Headlines</p>
+         {% for item in  news %}
       <div class="news">
-          <p style="color:yellow;font-family:teletext2;" >{{news[0].name}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{news[0].title}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{news[0].publishedat}}</p>
-          <h2 class="newstxt">{{news[0].description}}</h2>
-          <h2 class="newstxt">{{news[0].content}}</h2>
+          <p style="color:yellow;font-family:teletext2;" >{{item.name}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{item.title}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{item.publishedat}}</p>
+          <h2 class="newstxt">{{item.description}}</h2>
+          <h2 class="newstxt">{{item.content}}</h2>
       </div>
-      <div class="news">
-          <p style="color:yellow;font-family:teletext2;" >{{news[1].name}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{news[1].title}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{news[1].publishedat}}</p>
-          <h2 class="newstxt">{{news[1].description}}</h2>
-          <h2 class="newstxt">{{news[1].content}}</h2>
-      </div>
-     <div class="news">
-          <p style="color:yellow;font-family:teletext2;" >{{news[2].name}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{news[2].title}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{news[2].publishedat}}</p>
-          <h2 class="newstxt">{{news[2].description}}</h2>
-          <h2 class="newstxt">{{news[2].content}}</h2>
-     </div>
-     <div class="news">
-          <p style="color:yellow;font-family:teletext2;" >{{news[3].name}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{news[3].title}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{news[3].publishedat}}</p>
-          <h2 class="newstxt">{{news[3].description}}</h2>
-          <h2 class="newstxt">{{news[3].content}}</h2>
-     </div>
+         {% endfor  %}
 
-     <div class="news">
-          <p style="color:yellow;font-family:teletext2;" >{{news[4].name}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{news[4].title}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{news[4].publishedat}}</p>
-          <h2 class="newstxt">{{news[4].description}}</h2>
-          <h2 class="newstxt">{{news[4].content}}</h2>
-     </div>
-     <div class="news">
-          <p style="color:yellow;font-family:teletext2;" >{{news[5].name}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{news[5].title}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{news[5].publishedat}}</p>
-          <h2 class="newstxt">{{news[5].description}}</h2>
-          <h2 class="newstxt">{{news[5].content}}</h2>
-      </div>
-     <div class="news">
-          <p style="color:yellow;font-family:teletext2;" >{{news[6].name}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{news[6].title}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{news[6].publishedat}}</p>
-          <h2 class="newstxt">{{news[6].description}}</h2>
-         <h2 class="newstxt">{{news[6].content}}</h2>
-     </div>
-     <div class="news">
-         <p style="color:yellow;font-family:teletext2;" >{{news[7].name}}</p>
-         <p style="color:yellow;font-family:teletext2;">{{news[7].title}}</p>
-         <p style="color:yellow;font-family:teletext2;">{{news[7].publishedat}}</p>
-         <h2 class="newstxt">{{news[7].description}}</h2>
-         <h2 class="newstxt">{{news[7].content}}</h2>
-     </div>
-     <div class="news">
-         <p style="color:yellow;font-family:teletext2;" >{{news[8].name}}</p>
-         <p style="color:yellow;font-family:teletext2;">{{news[8].title}}</p>
-         <p style="color:yellow;font-family:teletext2;">{{news[8].publishedat}}</p>
-         <h2 class="newstxt">{{news[8].description}}</h2>
-         <h2 class="newstxt">{{news[8].content}}</h2>
-     </div>
-     <div class="news">
-         <p style="color:yellow;font-family:teletext2;" >{{news[9].name}}</p>
-         <p style="color:yellow;font-family:teletext2;">{{news[9].title}}</p>
-         <p style="color:yellow;font-family:teletext2;">{{news[9].publishedat}}</p>
-         <h2 class="newstxt">{{news[9].description}}</h2>
-         <h2 class="newstxt">{{news[9].content}}</h2>
-     </div>
-         <div class="news">
-         <p style="color:yellow;font-family:teletext2;" >{{news[10].name}}</p>
-         <p style="color:yellow;font-family:teletext2;">{{news[10].title}}</p>
-         <p style="color:yellow;font-family:teletext2;">{{news[10].publishedat}}</p>
-         <h2 class="newstxt">{{news[10].description}}</h2>
-         <h2 class="newstxt">{{news[10].content}}</h2>
-     </div>
-         <div class="news">
-         <p style="color:yellow;font-family:teletext2;" >{{news[11].name}}</p>
-         <p style="color:yellow;font-family:teletext2;">{{news[11].title}}</p>
-         <p style="color:yellow;font-family:teletext2;">{{news[11].publishedat}}</p>
-         <h2 class="newstxt">{{news[11].description}}</h2>
-         <h2 class="newstxt">{{news[11].content}}</h2>
-     </div>
-         <div class="news">
-         <p style="color:yellow;font-family:teletext2;" >{{news[12].name}}</p>
-         <p style="color:yellow;font-family:teletext2;">{{news[12].title}}</p>
-         <p style="color:yellow;font-family:teletext2;">{{news[12].publishedat}}</p>
-         <h2 class="newstxt">{{news[12].description}}</h2>
-         <h2 class="newstxt">{{news[12].content}}</h2>
-     </div>
-         <div class="news">
-         <p style="color:yellow;font-family:teletext2;" >{{news[13].name}}</p>
-         <p style="color:yellow;font-family:teletext2;">{{news[13].title}}</p>
-         <p style="color:yellow;font-family:teletext2;">{{news[13].publishedat}}</p>
-         <h2 class="newstxt">{{news[13].description}}</h2>
-         <h2 class="newstxt">{{news[13].content}}</h2>
-     </div>
-         <div class="news">
-         <p style="color:yellow;font-family:teletext2;" >{{news[14].name}}</p>
-         <p style="color:yellow;font-family:teletext2;">{{news[14].title}}</p>
-         <p style="color:yellow;font-family:teletext2;">{{news[14].publishedat}}</p>
-         <h2 class="newstxt">{{news[14].description}}</h2>
-         <h2 class="newstxt">{{news[14].content}}</h2>
-     </div>
      </div>
    <div class="column" style="background-color:darkorchid;">
 
       <p>COVID News</p>
-     <div class="ornews">
-          <p style="color:yellow;font-family:teletext2;" >{{ornews[0].name}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{ornews[0].title}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{ornews[0].publishedat}}</p>
-          <h2 class="newstxt">{{ornews[0].description}}</h2>
-          <h2 class="newstxt">{{ornews[0].content}}</h2>
+       {% for item in  ornews %}
+       <div class="ornews">
+          <p style="color:yellow;font-family:teletext2;" >{{item.name}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{item.title}}</p>
+          <p style="color:yellow;font-family:teletext2;">{{item.description}}</p>
+          <h2 class="newstxt"><{{item.description}}</h2>
+          <h2 class="newstxt">{{item.description}}</h2>
       </div>
-      <div class="ornews">
-          <p style="color:yellow;font-family:teletext2;" >{{ornews[1].name}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{ornews[1].title}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{ornews[1].publishedat}}</p>
-          <h2 class="newstxt">{{ornews[1].description}}</h2>
-          <h2 class="newstxt">{{ornews[1].content}}</h2>
-      </div>
-     <div class="ornews">
-          <p style="color:yellow;font-family:teletext2;" >{{ornews[2].name}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{ornews[2].title}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{ornews[2].publishedat}}</p>
-          <h2 class="newstxt">{{ornews[2].description}}</h2>
-          <h2 class="newstxt">{{ornews[2].content}}</h2>
-     </div>
-     <div class="ornews">
-          <p style="color:yellow;font-family:teletext2;" >{{ornews[3].name}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{ornews[3].title}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{ornews[3].publishedat}}</p>
-          <h2 class="newstxt">{{ornews[3].description}}</h2>
-          <h2 class="newstxt">{{ornews[3].content}}</h2>
-     </div>
+       {% endfor %}
 
-     <div class="ornews">
-          <p style="color:yellow;font-family:teletext2;" >{{ornews[4].name}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{ornews[4].title}}</p>
-          <p style="color:yellow;font-family:teletext2;">{{ornews[4].publishedat}}</p>
-          <h2 class="newstxt">{{ornews[4].description}}</h2>
-          <h2 class="newstxt">{{ornews[4].content}}</h2>
-     </div>
-
-
-
-</div>
+   </div>
 
         </div>
 
 
+    </div>
     </div>
 </body>
 </html>
